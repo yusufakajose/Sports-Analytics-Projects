@@ -1,0 +1,184 @@
+---
+title: "NBA Player Analysis - Ersan İlyasova"
+format: html
+editor: visual
+---
+
+```{r}
+library(plyr)
+library(tidyverse)
+library(rvest)
+library(ggrepel)
+library(readr)
+library(RCurl)
+library(jpeg)
+```
+
+```{r}
+player <- "Ersan İlyasova"
+slug <- "ilyaser01"
+url <- paste0("https://www.basketball-reference.com/players/",substr(slug,1,1),"/",slug,".html")
+image_url <- paste0("https://www.basketball-reference.com/req/202106291/images/players/",slug,".jpg")
+```
+
+```{r}
+# Read total stats
+ttl_stat <- url %>%
+  read_html %>%
+  html_node("#totals") %>% 
+  html_table()
+
+# Read advanced stats
+adv_stat <- url %>%
+  read_html %>%
+  html_node("#advanced") %>% 
+  html_table()
+
+# Merge stats tables
+total_stats <- merge(ttl_stat, adv_stat, by=c("Season","Age", "Tm", "Lg", "Pos", "G", "MP"))
+
+View(total_stats)
+```
+
+```{r}
+####################
+# Step 5: Select stats
+# make a list of stats we care about
+shooting_stats <- c("3P%", "FT%", "eFG%", "TS%", "USG%")
+stats <-  shooting_stats
+# create the data frame for the chart, by using the Season, Team, and the vector of all stats
+df <- total_stats %>% select(Season, "Team"=Tm, unlist(stats))
+# multiply values by 100 to rescale
+df$'3P%' <- df$'3P%'*100
+df$'FT%' <- df$'FT%'*100
+df$'eFG%' <- df$'eFG%'*100
+df$'TS%' <- df$'TS%'*100
+# create the final data frame
+df_stats <- df %>% gather(Stat_cat, Stat_val, 3:ncol(df))
+# clean the data
+df_stats <- dplyr::filter(df_stats, grepl('-', Season))
+df_stats <- dplyr::filter(df_stats, !grepl('TOT', Team))
+df_stats <- unique(df_stats)
+df_stats <- merge(df_stats,data.frame("Season"=total_stats$Season,"GP"=total_stats$G), by="Season")
+View(df_stats)
+```
+
+```{r}
+####################
+# Step 6: Create chart
+####################
+# Get columns and pivot wider 
+p <- df_stats %>%
+  ggplot(aes(x = paste0(Season," ",Team,"\n ",GP, "GP"),
+             y = Stat_val,
+             label=Stat_cat)) +
+  # Add points
+  geom_point(aes(fill = Stat_cat),
+             size = 2,
+             color = 'black',
+             shape = 21)
+p
+```
+
+```{r}
+# Add lines
+p <- p + geom_line(aes(group = Stat_cat), size=0.05)
+
+
+
+# Edit axis
+p <- p + scale_y_continuous(breaks = seq(0, ceiling(max(df_stats$Stat_val,na.rm = TRUE)), 5))
+p
+```
+
+```{r}
+# Add title, subtitle and caption
+p <- p +  labs(title = paste0(player," Career Stats"),
+           subtitle = paste0(min(df_stats$Season)," to ",max(df_stats$Season)),
+           x = "",
+           y = "")
+# Add theme that removes the legend, modifies title, subtitle, captions, and x-axis
+p <- p +  theme(legend.position = 'right',
+                plot.title = element_text(size = 17, face="bold", hjust = .5),
+                plot.subtitle = element_text(face = 'italic', size = 13, hjust = .5),
+                axis.text.x=element_text(angle=60, hjust=1, size=2),
+                plot.margin = margin(10, 10, 15, 10))
+p
+```
+
+```{r}
+## Add team changes lines
+# Team line breaks
+team_changes <- NULL
+i=1
+while (i < length(unique(paste0(df_stats$Season,df_stats$Team)))){
+  team_change <- NULL
+  team_change$year <- i+0.5
+  team_change$team1 <- substr(unique(paste0(df_stats$Season,df_stats$Team)),8,11)[i]
+  team_change$team2 <- substr(unique(paste0(df_stats$Season,df_stats$Team)),8,11)[i+1]
+  team_change <- as.data.frame(team_change)
+  ifelse(team_change$team1==team_change$team2,"",team_changes <- rbind(team_change,team_changes))
+  i <- i + 1
+}
+p <- p + geom_vline(xintercept=team_changes$year, colour="grey")
+p
+team_changes
+```
+
+```{r}
+#####
+# Create and add custom theme
+#####
+theme_sweep <- function () {
+  theme_minimal(base_size=2, base_family="sans") %+replace%
+    theme(
+      # get rid of panel grids
+      panel.grid.major = element_line(size = (0.075), colour="grey"),
+      panel.grid.minor = element_blank(),
+      #panel.border = element_blank(),
+      # Change plot and panel background
+      plot.background = element_rect(fill = "#5F27D5"),
+      panel.background = element_rect(fill = "#D4D4D4"),
+      plot.title = element_text(size=18, hjust = 0.5),
+      plot.subtitle = element_text(size=13, hjust = 0.5)
+    )
+}
+# Add custom theme to the graph
+p <- p + theme_sweep()
+p
+```
+
+```{r}
+# Add theme that removes the legend, modifies title, subtitle, captions, and x-axis
+p <- p +  theme(legend.position = 'right', 
+                legend.text = element_text(size=10),                                                       legend.title = element_text(size=10),
+                plot.title = element_text(size = 17, face="bold", hjust = .5), 
+                plot.subtitle = element_text(face = 'italic', size = 10, hjust = .5), 
+                axis.text.x=element_text(angle=60, hjust=1, size=4.8, color="black"),
+                plot.caption = element_text(color = 'gray40'), 
+                plot.margin = margin(10, 10, 15, 10))
+p
+```
+
+```{r}
+## Add player image 
+# Create JPG functions
+get_jpg <- function(filename) {
+  grid::rasterGrob(readJPEG(getURLContent(filename)), interpolate = TRUE)
+}
+pic <- get_jpg(image_url)
+# Use below if chart has percentages
+p <- p+
+  annotation_custom(pic, xmin = -1, xmax = 3,
+                    ymin = max(df_stats$Stat_val,na.rm = T)-2,
+                    ymax = max(df_stats$Stat_val,na.rm = T)+19) +
+  coord_cartesian(clip = "off")
+#####
+# Save plot
+#####
+chart_type <- "avg_stats"
+ggsave(paste0(player,"-",chart_type,".png"), p, width = 7, height = 7, dpi = 400)
+p
+```
+
+P.S. Inspired by Sweep Sports Analytics Blog Post

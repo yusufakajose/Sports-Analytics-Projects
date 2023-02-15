@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>NBA Player Analysis - Ersan İlyasova</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="ersanilyasova_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ersanilyasova_files/libs/quarto-html/quarto.js"></script>
+<script src="ersanilyasova_files/libs/quarto-html/popper.min.js"></script>
+<script src="ersanilyasova_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ersanilyasova_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ersanilyasova_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ersanilyasova_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ersanilyasova_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ersanilyasova_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ersanilyasova_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">NBA Player Analysis - Ersan İlyasova</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.7     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::arrange()   masks plyr::arrange()
+✖ purrr::compact()   masks plyr::compact()
+✖ dplyr::count()     masks plyr::count()
+✖ dplyr::failwith()  masks plyr::failwith()
+✖ dplyr::filter()    masks stats::filter()
+✖ dplyr::id()        masks plyr::id()
+✖ dplyr::lag()       masks stats::lag()
+✖ dplyr::mutate()    masks plyr::mutate()
+✖ dplyr::rename()    masks plyr::rename()
+✖ dplyr::summarise() masks plyr::summarise()
+✖ dplyr::summarize() masks plyr::summarize()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'rvest'
+
+The following object is masked from 'package:readr':
+
+    guess_encoding</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCurl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'RCurl'
+
+The following object is masked from 'package:tidyr':
+
+    complete</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jpeg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>player <span class="ot">&lt;-</span> <span class="st">"Ersan İlyasova"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>slug <span class="ot">&lt;-</span> <span class="st">"ilyaser01"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://www.basketball-reference.com/players/"</span>,<span class="fu">substr</span>(slug,<span class="dv">1</span>,<span class="dv">1</span>),<span class="st">"/"</span>,slug,<span class="st">".html"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>image_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://www.basketball-reference.com/req/202106291/images/players/"</span>,slug,<span class="st">".jpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read total stats</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ttl_stat <span class="ot">&lt;-</span> url <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  read_html <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_node</span>(<span class="st">"#totals"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read advanced stats</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>adv_stat <span class="ot">&lt;-</span> url <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  read_html <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_node</span>(<span class="st">"#advanced"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge stats tables</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>total_stats <span class="ot">&lt;-</span> <span class="fu">merge</span>(ttl_stat, adv_stat, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Season"</span>,<span class="st">"Age"</span>, <span class="st">"Tm"</span>, <span class="st">"Lg"</span>, <span class="st">"Pos"</span>, <span class="st">"G"</span>, <span class="st">"MP"</span>))</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(total_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">####################</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Select stats</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># make a list of stats we care about</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>shooting_stats <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"3P%"</span>, <span class="st">"FT%"</span>, <span class="st">"eFG%"</span>, <span class="st">"TS%"</span>, <span class="st">"USG%"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span>  shooting_stats</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create the data frame for the chart, by using the Season, Team, and the vector of all stats</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> total_stats <span class="sc">%&gt;%</span> <span class="fu">select</span>(Season, <span class="st">"Team"</span><span class="ot">=</span>Tm, <span class="fu">unlist</span>(stats))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># multiply values by 100 to rescale</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">'3P%'</span> <span class="ot">&lt;-</span> df<span class="sc">$</span><span class="st">'3P%'</span><span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">'FT%'</span> <span class="ot">&lt;-</span> df<span class="sc">$</span><span class="st">'FT%'</span><span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">'eFG%'</span> <span class="ot">&lt;-</span> df<span class="sc">$</span><span class="st">'eFG%'</span><span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">'TS%'</span> <span class="ot">&lt;-</span> df<span class="sc">$</span><span class="st">'TS%'</span><span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># create the final data frame</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>df_stats <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">gather</span>(Stat_cat, Stat_val, <span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(df))</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># clean the data</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>df_stats <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(df_stats, <span class="fu">grepl</span>(<span class="st">'-'</span>, Season))</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>df_stats <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(df_stats, <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">'TOT'</span>, Team))</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>df_stats <span class="ot">&lt;-</span> <span class="fu">unique</span>(df_stats)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>df_stats <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_stats,<span class="fu">data.frame</span>(<span class="st">"Season"</span><span class="ot">=</span>total_stats<span class="sc">$</span>Season,<span class="st">"GP"</span><span class="ot">=</span>total_stats<span class="sc">$</span>G), <span class="at">by=</span><span class="st">"Season"</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(df_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">####################</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Create chart</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">####################</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get columns and pivot wider </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> df_stats <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">paste0</span>(Season,<span class="st">" "</span>,Team,<span class="st">"</span><span class="sc">\n</span><span class="st"> "</span>,GP, <span class="st">"GP"</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> Stat_val,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">label=</span>Stat_cat)) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add points</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Stat_cat),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">'black'</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ersanilyasova_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add lines</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Stat_cat), <span class="at">size=</span><span class="fl">0.05</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit axis</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">ceiling</span>(<span class="fu">max</span>(df_stats<span class="sc">$</span>Stat_val,<span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="dv">5</span>))</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ersanilyasova_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title, subtitle and caption</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(player,<span class="st">" Career Stats"</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="fu">min</span>(df_stats<span class="sc">$</span>Season),<span class="st">" to "</span>,<span class="fu">max</span>(df_stats<span class="sc">$</span>Season)),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="st">""</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Add theme that removes the legend, modifies title, subtitle, captions, and x-axis</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>, <span class="at">face=</span><span class="st">"bold"</span>, <span class="at">hjust =</span> .<span class="dv">5</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">'italic'</span>, <span class="at">size =</span> <span class="dv">13</span>, <span class="at">hjust =</span> .<span class="dv">5</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">60</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">size=</span><span class="dv">2</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ersanilyasova_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add team changes lines</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Team line breaks</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>team_changes <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>i<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> <span class="fu">length</span>(<span class="fu">unique</span>(<span class="fu">paste0</span>(df_stats<span class="sc">$</span>Season,df_stats<span class="sc">$</span>Team)))){</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  team_change <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  team_change<span class="sc">$</span>year <span class="ot">&lt;-</span> i<span class="fl">+0.5</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  team_change<span class="sc">$</span>team1 <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">unique</span>(<span class="fu">paste0</span>(df_stats<span class="sc">$</span>Season,df_stats<span class="sc">$</span>Team)),<span class="dv">8</span>,<span class="dv">11</span>)[i]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  team_change<span class="sc">$</span>team2 <span class="ot">&lt;-</span> <span class="fu">substr</span>(<span class="fu">unique</span>(<span class="fu">paste0</span>(df_stats<span class="sc">$</span>Season,df_stats<span class="sc">$</span>Team)),<span class="dv">8</span>,<span class="dv">11</span>)[i<span class="sc">+</span><span class="dv">1</span>]</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  team_change <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(team_change)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(team_change<span class="sc">$</span>team1<span class="sc">==</span>team_change<span class="sc">$</span>team2,<span class="st">""</span>,team_changes <span class="ot">&lt;-</span> <span class="fu">rbind</span>(team_change,team_changes))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>team_changes<span class="sc">$</span>year, <span class="at">colour=</span><span class="st">"grey"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ersanilyasova_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>team_changes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  year team1 team2
+1 16.5   MIL   UTA
+2 14.5   PHI   MIL
+3 13.5   ATL   PHI
+4 11.5   PHI   ATL
+5 10.5   OKC   PHI
+6  9.5   ORL   OKC
+7  8.5   DET   ORL
+8  7.5   MIL   DET</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and add custom theme</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>theme_sweep <span class="ot">&lt;-</span> <span class="cf">function</span> () {</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size=</span><span class="dv">2</span>, <span class="at">base_family=</span><span class="st">"sans"</span>) <span class="sc">%+replace%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>      <span class="co"># get rid of panel grids</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">size =</span> (<span class="fl">0.075</span>), <span class="at">colour=</span><span class="st">"grey"</span>),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>      <span class="co">#panel.border = element_blank(),</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Change plot and panel background</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#5F27D5"</span>),</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#D4D4D4"</span>),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Add custom theme to the graph</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme_sweep</span>()</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ersanilyasova_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add theme that removes the legend, modifies title, subtitle, captions, and x-axis</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'right'</span>, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),                                                       <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>, <span class="at">face=</span><span class="st">"bold"</span>, <span class="at">hjust =</span> .<span class="dv">5</span>), </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">'italic'</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> .<span class="dv">5</span>), </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">60</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">size=</span><span class="fl">4.8</span>, <span class="at">color=</span><span class="st">"black"</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">'gray40'</span>), </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ersanilyasova_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add player image </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create JPG functions</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>get_jpg <span class="ot">&lt;-</span> <span class="cf">function</span>(filename) {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  grid<span class="sc">::</span><span class="fu">rasterGrob</span>(<span class="fu">readJPEG</span>(<span class="fu">getURLContent</span>(filename)), <span class="at">interpolate =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>pic <span class="ot">&lt;-</span> <span class="fu">get_jpg</span>(image_url)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use below if chart has percentages</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p<span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_custom</span>(pic, <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xmax =</span> <span class="dv">3</span>,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymin =</span> <span class="fu">max</span>(df_stats<span class="sc">$</span>Stat_val,<span class="at">na.rm =</span> T)<span class="sc">-</span><span class="dv">2</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> <span class="fu">max</span>(df_stats<span class="sc">$</span>Stat_val,<span class="at">na.rm =</span> T)<span class="sc">+</span><span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">clip =</span> <span class="st">"off"</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>chart_type <span class="ot">&lt;-</span> <span class="st">"avg_stats"</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">paste0</span>(player,<span class="st">"-"</span>,chart_type,<span class="st">".png"</span>), p, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">7</span>, <span class="at">dpi =</span> <span class="dv">400</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ersanilyasova_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>P.S. Inspired by Sweep Sports Analytics Blog Post</p>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
