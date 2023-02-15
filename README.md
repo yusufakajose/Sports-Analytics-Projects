@@ -1,1 +1,1 @@
-# Sports-Analytics-Projects
+# Sports Analytics Projects
